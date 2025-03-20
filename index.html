@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Support - Security Scan</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: black;
+            color: green;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background: #111;
+            border-radius: 5px;
+            box-shadow: 0 0 10px green;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid green;
+            border-radius: 5px;
+            background: black;
+            color: green;
+            font-size: 16px;
+            text-align: center;
+        }
+        button {
+            background-color: green;
+            color: black;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: lime;
+        }
+        .terminal {
+            display: none;
+            text-align: left;
+            padding: 15px;
+            margin-top: 20px;
+            background: #000;
+            border: 2px solid green;
+            border-radius: 5px;
+            height: 250px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        .final-report {
+            display: none;
+            margin-top: 20px;
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🍏 Apple Support - Security Scan</h2>
+        <p>Enter your details to check security status</p>
+        
+        <input type="text" id="userName" placeholder="Enter Your Name" required>
+        <input type="text" id="userIP" placeholder="Enter Your IP Address" required>
+        <button onclick="startScan()">Run Scan</button>
+
+        <div class="terminal" id="terminal">
+            <p>Initializing scan...</p>
+        </div>
+
+        <div class="final-report" id="finalReport"></div>
+    </div>
+
+    <!-- Warning Buzzer Sound -->
+    <audio id="buzzer" loop>
+        <source src="https://www.soundjay.com/button/beep-09.wav" type="audio/wav">
+    </audio>
+
+    <script>
+        function startScan() {
+            let userName = document.getElementById("userName").value.trim();
+            let userIP = document.getElementById("userIP").value.trim();
+            let terminal = document.getElementById("terminal");
+            let finalReport = document.getElementById("finalReport");
+            let buzzer = document.getElementById("buzzer");
+
+            if (userName === "" || userIP === "") {
+                alert("Please enter your name and IP address.");
+                return;
+            }
+
+            terminal.style.display = "block";
+            terminal.innerHTML = "<p>Running scan...</p>";
+
+            let hackers = [
+                {name: "Ethan Walker", ip: "192.168.3.101", location: "New York, USA"},
+                {name: "Sergey Petrov", ip: "185.243.200.22", location: "Moscow, Russia"},
+                {name: "Lin Wei", ip: "203.123.45.67", location: "Beijing, China"},
+                {name: "Kamal Gupta", ip: "116.75.32.19", location: "Mumbai, India"},
+                {name: "Daniel Martinez", ip: "89.123.76.21", location: "Madrid, Spain"},
+                {name: "Yuki Tanaka", ip: "210.22.18.45", location: "Tokyo, Japan"},
+                {name: "Ali Hassan", ip: "102.54.88.39", location: "Cairo, Egypt"},
+                {name: "John Smith", ip: "58.173.92.104", location: "London, UK"},
+                {name: "Luca Rossi", ip: "78.55.34.67", location: "Rome, Italy"},
+                {name: "Carlos Diaz", ip: "186.45.67.89", location: "Buenos Aires, Argentina"},
+                {name: "Hans Müller", ip: "134.76.99.12", location: "Berlin, Germany"},
+                {name: "Omar Al-Farsi", ip: "31.44.55.66", location: "Dubai, UAE"},
+                {name: "Felipe Gomez", ip: "190.34.12.55", location: "Bogotá, Colombia"},
+                {name: "Artem Ivanov", ip: "90.178.200.30", location: "Kyiv, Ukraine"},
+                {name: "Sven Andersson", ip: "62.34.11.22", location: "Stockholm, Sweden"},
+                {name: "Miguel Souza", ip: "201.33.44.55", location: "São Paulo, Brazil"},
+                {name: "Dmitry Ivanov", ip: "88.44.99.77", location: "Saint Petersburg, Russia"},
+                {name: "Kim Joon", ip: "223.77.55.34", location: "Seoul, South Korea"},
+                {name: "Jake Thompson", ip: "67.188.44.22", location: "Los Angeles, USA"},
+                {name: "Andre Dupont", ip: "51.23.44.55", location: "Paris, France"}
+            ];
+
+            let i = 0;
+            function updateTerminal() {
+                if (i < hackers.length) {
+                    terminal.innerHTML += `<p>⚠️ Threat Detected: ${hackers[i].name} | IP: ${hackers[i].ip} | Location: ${hackers[i].location}</p>`;
+                    i++;
+                    setTimeout(updateTerminal, 200);
+                } else {
+                    showFinalReport();
+                }
+            }
+
+            setTimeout(updateTerminal, 1000);
+
+            function showFinalReport() {
+                setTimeout(() => {
+                    finalReport.innerHTML = `
+                        <p>⚠️ Security Scan Completed ⚠️</p>
+                        <p>Name: ${userName}</p>
+                        <p>Your IP: ${userIP}</p>
+                        <p>Security Level: <span style="color: red;">8%</span></p>
+                        <p>🚨 Your system is highly vulnerable! 🚨</p>
+                    `;
+                    finalReport.style.display = "block";
+                    buzzer.play();
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>
