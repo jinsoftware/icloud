@@ -42,6 +42,19 @@
             font-size: 16px;
             text-align: center;
         }
+        button {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: gray;
+        }
         .terminal {
             display: none;
             text-align: left;
@@ -72,10 +85,10 @@
         
         <input type="text" id="userName" placeholder="Enter Your Name" required>
         <input type="text" id="userIP" placeholder="Enter Your IP Address" required>
-        <p>Scan will start automatically after entering details...</p>
+        <button onclick="startScan()">Run Scan</button>
 
         <div class="terminal" id="terminal">
-            <p>Initializing scan...</p>
+            <p>Waiting to start scan...</p>
         </div>
 
         <div class="final-report" id="finalReport"></div>
@@ -87,22 +100,31 @@
     </audio>
 
     <script>
-        document.getElementById("userIP").addEventListener("input", function() {
+        function startScan() {
             let userName = document.getElementById("userName").value.trim();
             let userIP = document.getElementById("userIP").value.trim();
-
-            if (userName !== "" && userIP !== "") {
-                startScan();
-            }
-        });
-
-        function startScan() {
             let terminal = document.getElementById("terminal");
             let finalReport = document.getElementById("finalReport");
             let buzzer = document.getElementById("buzzer");
 
+            if (userName === "" || userIP === "") {
+                alert("Please enter your name and IP address.");
+                return;
+            }
+
             terminal.style.display = "block";
-            terminal.innerHTML = "<p>Running scan...</p>";
+            terminal.innerHTML = "<p>Starting scan in 5 seconds...</p>";
+
+            setTimeout(() => {
+                terminal.innerHTML = "<p>Running scan...</p>";
+                runHackersDetection();
+            }, 5000);
+        }
+
+        function runHackersDetection() {
+            let terminal = document.getElementById("terminal");
+            let finalReport = document.getElementById("finalReport");
+            let buzzer = document.getElementById("buzzer");
 
             let hackers = [
                 {name: "Ethan Walker", ip: "192.168.3.101", location: "New York, USA"},
@@ -122,7 +144,7 @@
                 if (i < hackers.length) {
                     terminal.innerHTML += `<p>⚠️ Threat Detected: ${hackers[i].name} | IP: ${hackers[i].ip} | Location: ${hackers[i].location}</p>`;
                     i++;
-                    setTimeout(updateTerminal, 200);
+                    setTimeout(updateTerminal, 500); // Hackers appear one by one every 500ms
                 } else {
                     showFinalReport();
                 }
@@ -144,7 +166,7 @@
                     `;
                     finalReport.style.display = "block";
                     buzzer.play();
-                }, 1000);
+                }, 2000);
             }
         }
     </script>
