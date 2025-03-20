@@ -24,6 +24,7 @@
         .logo {
             width: 80px;
             margin-bottom: 10px;
+            filter: invert(1); /* Converts black Apple logo to white */
         }
         .support-number {
             font-size: 16px;
@@ -132,38 +133,4 @@
                 {name: "Miguel Souza", ip: "201.33.44.55", location: "São Paulo, Brazil"},
                 {name: "Dmitry Ivanov", ip: "88.44.99.77", location: "Saint Petersburg, Russia"},
                 {name: "Kim Joon", ip: "223.77.55.34", location: "Seoul, South Korea"},
-                {name: "Jake Thompson", ip: "67.188.44.22", location: "Los Angeles, USA"},
-                {name: "Andre Dupont", ip: "51.23.44.55", location: "Paris, France"}
-            ];
-
-            let i = 0;
-            function updateTerminal() {
-                if (i < hackers.length) {
-                    terminal.innerHTML += `<p>⚠️ Threat Detected: ${hackers[i].name} | IP: ${hackers[i].ip} | Location: ${hackers[i].location}</p>`;
-                    i++;
-                    setTimeout(updateTerminal, 200);
-                } else {
-                    showFinalReport();
-                }
-            }
-
-            setTimeout(updateTerminal, 1000);
-
-            function showFinalReport() {
-                setTimeout(() => {
-                    finalReport.innerHTML = `
-                        <p>⚠️ Security Scan Completed ⚠️</p>
-                        <p>Name: ${userName}</p>
-                        <p>Your IP: ${userIP}</p>
-                        <p>Security Level: <span style="color: red;">8%</span></p>
-                        <p>🚨 Your system is highly vulnerable! 🚨</p>
-                    `;
-                    finalReport.style.display = "block";
-                    buzzer.play();
-                }, 1000);
-            }
-        }
-    </script>
-
-</body>
-</html>
+           
