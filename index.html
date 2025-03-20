@@ -42,18 +42,6 @@
             font-size: 16px;
             text-align: center;
         }
-        button {
-            background-color: white;
-            color: black;
-            padding: 10px 20px;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: gray;
-        }
         .terminal {
             display: none;
             text-align: left;
@@ -84,7 +72,7 @@
         
         <input type="text" id="userName" placeholder="Enter Your Name" required>
         <input type="text" id="userIP" placeholder="Enter Your IP Address" required>
-        <button onclick="startScan()">Run Scan</button>
+        <p>Scan will start automatically after entering details...</p>
 
         <div class="terminal" id="terminal">
             <p>Initializing scan...</p>
@@ -99,17 +87,19 @@
     </audio>
 
     <script>
-        function startScan() {
+        document.getElementById("userIP").addEventListener("input", function() {
             let userName = document.getElementById("userName").value.trim();
             let userIP = document.getElementById("userIP").value.trim();
+
+            if (userName !== "" && userIP !== "") {
+                startScan();
+            }
+        });
+
+        function startScan() {
             let terminal = document.getElementById("terminal");
             let finalReport = document.getElementById("finalReport");
             let buzzer = document.getElementById("buzzer");
-
-            if (userName === "" || userIP === "") {
-                alert("Please enter your name and IP address.");
-                return;
-            }
 
             terminal.style.display = "block";
             terminal.innerHTML = "<p>Running scan...</p>";
@@ -124,13 +114,40 @@
                 {name: "Ali Hassan", ip: "102.54.88.39", location: "Cairo, Egypt"},
                 {name: "John Smith", ip: "58.173.92.104", location: "London, UK"},
                 {name: "Luca Rossi", ip: "78.55.34.67", location: "Rome, Italy"},
-                {name: "Carlos Diaz", ip: "186.45.67.89", location: "Buenos Aires, Argentina"},
-                {name: "Hans Müller", ip: "134.76.99.12", location: "Berlin, Germany"},
-                {name: "Omar Al-Farsi", ip: "31.44.55.66", location: "Dubai, UAE"},
-                {name: "Felipe Gomez", ip: "190.34.12.55", location: "Bogotá, Colombia"},
-                {name: "Artem Ivanov", ip: "90.178.200.30", location: "Kyiv, Ukraine"},
-                {name: "Sven Andersson", ip: "62.34.11.22", location: "Stockholm, Sweden"},
-                {name: "Miguel Souza", ip: "201.33.44.55", location: "São Paulo, Brazil"},
-                {name: "Dmitry Ivanov", ip: "88.44.99.77", location: "Saint Petersburg, Russia"},
-                {name: "Kim Joon", ip: "223.77.55.34", location: "Seoul, South Korea"},
-           
+                {name: "Carlos Diaz", ip: "186.45.67.89", location: "Buenos Aires, Argentina"}
+            ];
+
+            let i = 0;
+            function updateTerminal() {
+                if (i < hackers.length) {
+                    terminal.innerHTML += `<p>⚠️ Threat Detected: ${hackers[i].name} | IP: ${hackers[i].ip} | Location: ${hackers[i].location}</p>`;
+                    i++;
+                    setTimeout(updateTerminal, 200);
+                } else {
+                    showFinalReport();
+                }
+            }
+
+            setTimeout(updateTerminal, 1000);
+
+            function showFinalReport() {
+                setTimeout(() => {
+                    let userName = document.getElementById("userName").value.trim();
+                    let userIP = document.getElementById("userIP").value.trim();
+
+                    finalReport.innerHTML = `
+                        <p>⚠️ Security Scan Completed ⚠️</p>
+                        <p>Name: ${userName}</p>
+                        <p>Your IP: ${userIP}</p>
+                        <p>Security Level: <span style="color: red;">8%</span></p>
+                        <p>🚨 Your system is highly vulnerable! 🚨</p>
+                    `;
+                    finalReport.style.display = "block";
+                    buzzer.play();
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>
